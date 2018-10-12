@@ -10,6 +10,14 @@
         <input type="text" name="search" class="input">
         <input type="submit">
     </form>
+    <div class="col-12">
+        @if (Session::has('success'))
+            <p class="text-success">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                {{ Session::get('success') }}
+            </p>
+        @endif
+    </div>
     <form name="form" name="form">
         {{ csrf_field() }}
         <table id="keywords" cellspacing="0" cellpadding="0">
@@ -31,7 +39,7 @@
                     <td>{{ $task->phone }}</td>
                     <td>{{ $task->email }}</td>
                     <td><a href="{{ route('update', $task->id) }}">Update</a></td>
-                    <td><a href="#" class="delete-task" name="token" id="{{ $task->id }}">Delete</a></td>
+                    <td><a href="#" class="delete-task" id="{{ $task->id }}">Delete</a></td>
                 </tr>
             @endforeach
             </tbody>

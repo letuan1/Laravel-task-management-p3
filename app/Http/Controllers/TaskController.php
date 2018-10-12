@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskRequests;
 use App\Model\TaskModel;
 use Illuminate\Http\Request;
+use Session;
 
 class TaskController extends Controller
 {
@@ -62,6 +63,7 @@ class TaskController extends Controller
         $id = $request->id;
         if ($request->update) {
             $update = $this->update($request, $id, $name, $phone, $email);
+            Session::flash('success', 'Cập nhật thành công');
             return redirect()->route('index');
         }
     }
@@ -90,6 +92,8 @@ class TaskController extends Controller
         $tasks->phone = $request->phone;
         $tasks->email = "$request->email";
         $tasks->save();
+        Session::flash('success', 'Tạo mới thành công');
+        return redirect(route('index'));
     }
 
     /**
@@ -123,5 +127,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $delete = TaskModel::find($id)->delete();
+        Session::flash('success', 'Xóa thành công');
+        return redirect(route('index'));
     }
 }
